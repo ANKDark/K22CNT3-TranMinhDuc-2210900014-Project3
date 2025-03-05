@@ -1,0 +1,54 @@
+.it-btn-us-tmd.btn {
+  transition: background-color 0.3s ease;
+}
+
+.it-btn-us-tmd.btn:hover {
+  background-color: rgb(75, 75, 72);
+}
+
+.nav-link i {
+  min-width: 20px;
+  text-align: center;
+}
+
+.sidebar-text {
+  opacity: 0;
+  white-space: nowrap;
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+.nav .btn:nth-child(1) .sidebar-text {
+  animation-delay: 0.2s;
+}
+.nav .btn:nth-child(2) .sidebar-text {
+  animation-delay: 0.2s;
+}
+.nav .btn:nth-child(3) .sidebar-text {
+  animation-delay: 0.2s;
+}
+.nav .btn:nth-child(4) .sidebar-text {
+  animation-delay: 0.2s;
+}
+.nav .btn:nth-child(5) .sidebar-text {
+  animation-delay: 0.2s;
+}
+.nav .btn:nth-child(6) .sidebar-text {
+  animation-delay: 0.2s;
+}
+.nav .btn:nth-child(7) .sidebar-text {
+  animation-delay: 0.2s;
+}
+.nav .btn:nth-child(8) .sidebar-text {
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
