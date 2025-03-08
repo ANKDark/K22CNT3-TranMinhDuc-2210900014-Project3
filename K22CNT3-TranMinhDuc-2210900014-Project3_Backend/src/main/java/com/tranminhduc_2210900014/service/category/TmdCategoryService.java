@@ -48,7 +48,7 @@ public class TmdCategoryService implements TmdICategoryService {
         List<TmdCategory> categories = tmdCategoryRepository.findByTmdUserId(tmdUser.getId());
 
         if (categories.isEmpty()) {
-            throw new TmdCategoryNotFoundException("Không có danh mục nào!");
+            throw new TmdNotFoundException("Không có danh mục nào!");
         }
 
         return categories;
@@ -59,7 +59,7 @@ public class TmdCategoryService implements TmdICategoryService {
         TmdUser tmdUser = tmdValidateToken(token);
 
         TmdCategory existingCategory = tmdCategoryRepository.findById(tmdId)
-                .orElseThrow(() -> new TmdCategoryNotFoundException("Không tìm thấy danh mục!"));
+                .orElseThrow(() -> new TmdNotFoundException("Không tìm thấy danh mục!"));
 
         if (existingCategory.getTmdUser().getId() != tmdUser.getId()) {
             throw new TmdAccessDeniedException("Không có quyền cập nhật danh mục này!");
@@ -76,7 +76,7 @@ public class TmdCategoryService implements TmdICategoryService {
         TmdUser tmdUser = tmdValidateToken(token);
 
         TmdCategory category = tmdCategoryRepository.findByTmdName(tmdName)
-                .orElseThrow(() -> new TmdCategoryNotFoundException("Không tìm thấy danh mục với tên: " + tmdName));
+                .orElseThrow(() -> new TmdNotFoundException("Không tìm thấy danh mục với tên: " + tmdName));
 
         if (category.getTmdUser().getId() != tmdUser.getId()) {
             throw new TmdAccessDeniedException("Không có quyền truy cập danh mục này!");
@@ -90,26 +90,12 @@ public class TmdCategoryService implements TmdICategoryService {
         TmdUser tmdUser = tmdValidateToken(token);
 
         TmdCategory category = tmdCategoryRepository.findById(tmdId)
-                .orElseThrow(() -> new TmdCategoryNotFoundException("Không tìm thấy danh mục!"));
+                .orElseThrow(() -> new TmdNotFoundException("Không tìm thấy danh mục!"));
 
         if (category.getTmdUser().getId() != tmdUser.getId()) {
             throw new TmdAccessDeniedException("Không có quyền xóa danh mục này!");
         }
 
         tmdCategoryRepository.delete(category);
-    }
-
-    @Override
-    public TmdCategory tmdGetCategoryById(int tmdId, String token) {
-        TmdUser tmdUser = tmdValidateToken(token);
-
-        TmdCategory category = tmdCategoryRepository.findById(tmdId)
-                .orElseThrow(() -> new TmdCategoryNotFoundException("Không tìm thấy danh mục với id: " + tmdId));
-
-        if (category.getTmdUser().getId() != tmdUser.getId()) {
-            throw new TmdAccessDeniedException("Không có quyền truy cập danh mục này!");
-        }
-
-        return category;
     }
 }

@@ -7,5 +7,4 @@ import java.util.Optional;
 public interface TmdCategoryRepository extends JpaRepository<TmdCategory, Integer> {
         List<TmdCategory> findByTmdUserId(Integer tmdUserId);
         Optional<TmdCategory> findByTmdName(String tmdName);
-        long countByTmdUserId(Integer tmdUserId);
 }

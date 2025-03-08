@@ -54,25 +54,14 @@ public class TmdCategoryController {
         return ResponseEntity.ok(tmdCategoryService.tmdUpdateCategory(tmdCategory, tmdId, token));
     }
 
-    //Tối test cái này
-    @GetMapping("/tmdCategoryByName/{name}")
+    @GetMapping("/tmdCategoryByName/{tmdName}")
     public ResponseEntity<?> tmdGetCategoryByName(@RequestHeader("Authorization") String token,
-                                                  @PathVariable String name) {
+                                                  @PathVariable String tmdName) {
         if (token.startsWith("Bearer ")) {
             token = token.substring(7);
         }
 
-        return ResponseEntity.ok(tmdCategoryService.tmdGetCategoryByName(name, token));
-    }
-
-    @GetMapping("/tmdCategoryById/{id}")
-    public ResponseEntity<?> tmdGetCategoryById(@RequestHeader("Authorization") String token,
-                                                @PathVariable int id) {
-        if (token.startsWith("Bearer ")) {
-            token = token.substring(7);
-        }
-
-        return ResponseEntity.ok(tmdCategoryService.tmdGetCategoryById(id, token));
+        return ResponseEntity.ok(tmdCategoryService.tmdGetCategoryByName(tmdName, token));
     }
 
     @DeleteMapping("/tmdDeleteCategory/{id}")

@@ -87,13 +87,13 @@ const Sidebar = () => {
                             <i className="fa fa-user" style={{ color: '#fd7e14' }} aria-hidden="true"></i>
                             {tmdIsOpen && <span className='ms-2 sidebar-text'>Tài khoản</span>}
                         </Link>
-                        <Link to="#item-3" className={`btn btn-none it-btn-us-tmd p-3 text-white ${!tmdIsOpen ? 'd-flex justify-content-center' : 'text-start'}`}>
+                        <Link to="/tmdCategory" className={`btn btn-none it-btn-us-tmd p-3 text-white ${!tmdIsOpen ? 'd-flex justify-content-center' : 'text-start'}`}>
                             <i className="fa fa-bar-chart fa-rotate-270" style={{ color: '#28a745' }} aria-hidden="true"></i>
-                            {tmdIsOpen && <span className='ms-2 sidebar-text'>Dòng tiền</span>}
+                            {tmdIsOpen && <span className='ms-2 sidebar-text'>Danh mục</span>}
                         </Link>
-                        <Link to="#item-1" className={`btn btn-none it-btn-us-tmd p-3 text-white ${!tmdIsOpen ? 'd-flex justify-content-center' : 'text-start'}`}>
+                        <Link to="/tmdTransaction" className={`btn btn-none it-btn-us-tmd p-3 text-white ${!tmdIsOpen ? 'd-flex justify-content-center' : 'text-start'}`}>
                             <i className="fas fa-wallet" style={{ color: '#ffc107' }}></i>
-                            {tmdIsOpen && <span className='ms-2 sidebar-text'>Ngân sách</span>}
+                            {tmdIsOpen && <span className='ms-2 sidebar-text'>Giao dịch</span>}
                         </Link>
                         <Link to="#item-2" className={`btn btn-none it-btn-us-tmd p-3 text-white ${!tmdIsOpen ? 'd-flex justify-content-center' : 'text-start'}`}>
                             <i className="fas fa-bullseye" style={{ color: '#dc3545' }}></i>

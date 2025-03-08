@@ -9,5 +9,4 @@ public interface TmdICategoryService {
     TmdCategory tmdUpdateCategory(TmdCategory tmdCategory, int tmdId, String token);
     TmdCategory tmdGetCategoryByName(String tmdName, String token);
     void tmdDeleteCategory(int tmdId, String token);
-    TmdCategory tmdGetCategoryById(int tmdId, String token);
 }

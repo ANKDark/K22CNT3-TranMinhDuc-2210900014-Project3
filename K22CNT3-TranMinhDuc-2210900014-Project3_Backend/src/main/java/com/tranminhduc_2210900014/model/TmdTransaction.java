@@ -1,5 +1,6 @@
 package com.tranminhduc_2210900014.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
@@ -15,9 +16,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @ToString
 @Table(name = "tmd_transactions")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class TmdTransaction {
     @Id
     @Column(name = "tmd_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -28,6 +31,7 @@ public class TmdTransaction {
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.SET_NULL)
     @JoinColumn(name = "tmd_category_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private TmdCategory tmdCategory;
 
     @Column(name = "tmd_amount", nullable = false, precision = 10, scale = 2)
@@ -39,5 +43,4 @@ public class TmdTransaction {
     @Lob
     @Column(name = "tmd_note")
     private String tmdNote;
-
 }

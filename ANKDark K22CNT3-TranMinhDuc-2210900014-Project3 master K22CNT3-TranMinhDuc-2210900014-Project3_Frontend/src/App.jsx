@@ -4,6 +4,11 @@ import TmdHome from "./pages/users/TmdHome";
 import TmdLogin from "./pages/users/TmdLogin";
 import TmdMainLayout from "./layouts/TmdMainLayout";
 import TmdAuthLayout from "./layouts/TmdAuthLayout";
+import TmdCategory from "./pages/users/TmdCategory";
+import { TmdCategoryProvider } from "./contexts/TmdCategoryContext";
+import { TmdTransactionProvider } from "./contexts/TmdTransactionContext";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import TmdTransaction from "./pages/TmdTransaction";
 
 function App() {
   const { tmdUser } = useAuth();
@@ -17,6 +22,8 @@ function App() {
 
         <Route element={<TmdMainLayout />}>
           <Route path="/" element={<TmdHome />} />
+          <Route path="/tmdCategory" element={<TmdCategoryProvider><TmdCategory /></TmdCategoryProvider>} />
+          <Route path="/tmdTransaction" element={<TmdTransactionProvider><TmdTransaction /></TmdTransactionProvider>} />
         </Route>
       </Routes>
     </BrowserRouter>
