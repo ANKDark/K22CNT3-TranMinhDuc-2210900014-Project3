@@ -1,6 +1,6 @@
 package com.tranminhduc_2210900014.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
@@ -11,12 +11,13 @@ import org.hibernate.annotations.OnDeleteAction;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "tmdUser")
+@ToString
 @Table(name = "tmd_categories")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class TmdCategory {
     @Id
-    @Column(name = "tmd_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "tmd_id", nullable = false)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -29,5 +30,4 @@ public class TmdCategory {
 
     @Column(name = "tmd_type", nullable = false)
     private Boolean tmdType = false;
-
 }

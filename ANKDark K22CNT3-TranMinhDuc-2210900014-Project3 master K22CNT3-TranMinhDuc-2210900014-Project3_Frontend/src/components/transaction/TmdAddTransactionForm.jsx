@@ -49,8 +49,7 @@ export default function TmdAddTransactionForm({
                                     <select
                                         className="form-select bg-secondary text-white border-0 p-2 rounded"
                                         value={tmdCategoryId}
-                                        onChange={(e) => setTmdCategoryId(e.target.value)}
-                                    >
+                                        onChange={(e) => setTmdCategoryId(e.target.value)}>
                                         <option value="">Chọn danh mục</option>
                                         {tmdCategories.map((category) => (
                                             <option key={category.id} value={category.id}>

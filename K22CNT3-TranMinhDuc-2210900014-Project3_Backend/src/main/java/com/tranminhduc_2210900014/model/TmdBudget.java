@@ -1,5 +1,6 @@
 package com.tranminhduc_2210900014.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 @Setter
 @Entity
 @Table(name = "tmd_budgets")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class TmdBudget {
     @Id
     @Column(name = "tmd_id", nullable = false)
@@ -27,6 +29,7 @@ public class TmdBudget {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "tmd_category_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private TmdCategory tmdCategory;
 
     @Column(name = "tmd_amount_limit", nullable = false, precision = 10, scale = 2)

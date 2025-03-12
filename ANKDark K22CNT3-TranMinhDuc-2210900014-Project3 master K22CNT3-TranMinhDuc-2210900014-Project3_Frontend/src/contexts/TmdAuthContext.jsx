@@ -51,7 +51,6 @@ export const TmdAuthProvider = ({ children }) => {
 
       if (response.ok) {
         const data = JSON.parse(text);
-
         const token = data.token;
 
         if (tmdRemember) {
@@ -61,13 +60,65 @@ export const TmdAuthProvider = ({ children }) => {
         }
         setTmdUser(data.tmdUser);
         fetchTmdUser();
+        return { success: true };
       } else {
-        console.log("Đăng nhập thất bại:", text);
+        const errorData = JSON.parse(text);
+        return { success: false, message: errorData.message || "Đăng nhập thất bại!" };
       }
     } catch (error) {
-      console.log("Lỗi đăng nhập:", error);
+      console.error("Lỗi đăng nhập:", error);
+      return { success: false, message: "Có lỗi xảy ra. Vui lòng thử lại!" };
     }
   };
+
+  const tmdRegister = async ( tmdName, tmdEmail, tmdPasswordHash ) => {
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/tmdRegister", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tmdName, tmdEmail, tmdPasswordHash }),
+      });
+
+      const text = await response.text();
+
+      if (response.ok) {
+        return { success: true };
+      } else {
+        const errorData = JSON.parse(text);
+        return { success: false, message: errorData.message || "Đăng ký thất bại!" };
+      }
+    } catch (error) {
+      console.error("Lỗi đăng ký:", error);
+      return { success: false, message: "Có lỗi xảy ra. Vui lòng thử lại!" };
+    }
+  }
+
+  const tmdEditProfile = async ( tmdId ,tmdName, tmdEmail, tmdPasswordHash) => {
+    try {
+      const response = await fetch(`http://localhost:8080/tmdUsers/tmdUpdate/${tmdId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token") || sessionStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ tmdName, tmdEmail, tmdPasswordHash }),
+      });
+
+      const text = await response.text();
+
+      if (response.ok) {
+        const data = JSON.parse(text);
+        setTmdUser(data);
+        return { success: true };
+      } else {
+        const errorData = JSON.parse(text);
+        return { success: false, message: errorData.message || "Cập nhật thông tin thất bại!" };
+      }
+    } catch (error) {
+      console.error("Lỗi cập nhật thông tin:", error);
+      return { success: false, message: "Có lỗi xảy ra. Vui lòng thử lại!" };
+    }
+  }
 
   const tmdLogout = () => {
     localStorage.removeItem("token");
@@ -76,7 +127,7 @@ export const TmdAuthProvider = ({ children }) => {
   };
 
   return (
-    <TmdAuthContext.Provider value={{ tmdUser, tmdLogin, tmdLogout }}>
+    <TmdAuthContext.Provider value={{ tmdUser, tmdLogin, tmdLogout, tmdRegister, tmdEditProfile }}>
       {children}
     </TmdAuthContext.Provider>
   );

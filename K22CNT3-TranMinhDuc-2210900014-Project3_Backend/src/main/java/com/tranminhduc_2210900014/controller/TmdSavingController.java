@@ -1,9 +1,9 @@
 package com.tranminhduc_2210900014.controller;
 
-import com.tranminhduc_2210900014.model.TmdTransaction;
+import com.tranminhduc_2210900014.model.TmdSaving;
 import com.tranminhduc_2210900014.model.TmdUser;
 import com.tranminhduc_2210900014.service.auth.TmdAuthService;
-import com.tranminhduc_2210900014.service.transaction.TmdTransactionService;
+import com.tranminhduc_2210900014.service.saving.TmdSavingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/tmdTransaction")
+@RequestMapping("/tmdSaving")
 @RequiredArgsConstructor
 @CrossOrigin
-public class TmdTransactionController {
-    private final TmdTransactionService tmdTransactionService;
+public class TmdSavingController {
+    private final TmdSavingService tmdSavingService;
     private final TmdAuthService tmdAuthService;
 
-    @PostMapping("/tmdAddTransaction")
-    public ResponseEntity<?> tmdAddTransaction(@RequestHeader("Authorization") String token, @RequestBody TmdTransaction tmdTransaction) {
+    @PostMapping("/tmdAddSaving")
+    public ResponseEntity<?> tmdAddSaving(@RequestHeader("Authorization") String token, @RequestBody TmdSaving tmdSaving) {
         if (token.startsWith("Bearer ")) {
             token = token.substring(7);
         }
@@ -29,31 +29,30 @@ public class TmdTransactionController {
         if (user.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token không hợp lệ hoặc hết hạn!");
         }
-        tmdTransaction.setTmdUser(user.get());
+        tmdSaving.setTmdUser(user.get());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(tmdTransactionService.tmdAddTransaction(tmdTransaction, token));
+        return ResponseEntity.status(HttpStatus.CREATED).body(tmdSavingService.tmdAddSaving(tmdSaving, token));
     }
 
-    @GetMapping("/tmdListTransaction")
-    public ResponseEntity<?> tmdGetTransactionByUserId(@RequestHeader("Authorization") String token) {
+    @GetMapping("/tmdListSaving")
+    public ResponseEntity<?> tmdGetSavingByUserId(@RequestHeader("Authorization") String token) {
         if (token.startsWith("Bearer ")) {
             token = token.substring(7);
         }
 
         Optional<TmdUser> user = tmdAuthService.getUserFromToken(token);
-
         if (user.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token không hợp lệ hoặc hết hạn!");
         }
 
         int userId = user.get().getId();
-        return ResponseEntity.ok(tmdTransactionService.tmdGetTransactionByUserId(userId, token));
+        return ResponseEntity.ok(tmdSavingService.tmdGetSavingByUserId(userId, token));
     }
 
-    @PutMapping("/tmdUpdateTransaction/{tmdId}")
-    public ResponseEntity<?> tmdUpdateTransaction(@RequestHeader("Authorization") String token,
-                                                  @PathVariable int tmdId,
-                                                  @RequestBody TmdTransaction tmdTransaction) {
+    @PutMapping("/tmdUpdateSaving/{tmdId}")
+    public ResponseEntity<?> tmdUpdateSaving(@RequestHeader("Authorization") String token,
+                                             @PathVariable int tmdId,
+                                             @RequestBody TmdSaving tmdSaving) {
         if (token.startsWith("Bearer ")) {
             token = token.substring(7);
         }
@@ -63,12 +62,12 @@ public class TmdTransactionController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token không hợp lệ hoặc hết hạn!");
         }
 
-        tmdTransaction.setTmdUser(user.get());
-        return ResponseEntity.ok(tmdTransactionService.tmdUpdateTransaction(tmdTransaction, tmdId, token));
+        tmdSaving.setTmdUser(user.get());
+        return ResponseEntity.ok(tmdSavingService.tmdUpdateSaving(tmdSaving, tmdId, token));
     }
 
-    @DeleteMapping("/tmdDeleteTransaction/{id}")
-    public ResponseEntity<?> tmdDeleteTransaction(@RequestHeader("Authorization") String token, @PathVariable int id) {
+    @DeleteMapping("/tmdDeleteSaving/{id}")
+    public ResponseEntity<?> tmdDeleteSaving(@RequestHeader("Authorization") String token, @PathVariable int id) {
         if (token.startsWith("Bearer ")) {
             token = token.substring(7);
         }
@@ -78,7 +77,7 @@ public class TmdTransactionController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token không hợp lệ hoặc hết hạn!");
         }
 
-        tmdTransactionService.tmdDeleteTransaction(id, token);
-        return ResponseEntity.ok("Xóa giao dịch thành công!");
+        tmdSavingService.tmdDeleteSaving(id, token);
+        return ResponseEntity.ok("Xóa khoản tiết kiệm thành công!");
     }
 }

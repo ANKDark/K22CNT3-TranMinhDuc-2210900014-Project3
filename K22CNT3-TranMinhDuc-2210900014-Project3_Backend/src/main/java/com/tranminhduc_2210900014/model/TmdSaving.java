@@ -18,8 +18,8 @@ import java.time.LocalDate;
 @Table(name = "tmd_savings")
 public class TmdSaving {
     @Id
-    @Column(name = "tmd_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "tmd_id", nullable = false)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -27,7 +27,7 @@ public class TmdSaving {
     @JoinColumn(name = "tmd_user_id", nullable = false)
     private TmdUser tmdUser;
 
-    @Column(name = "tmd_goal_name", nullable = false)
+    @Column(name = "tmd_goal_name", nullable = false, length = 150)
     private String tmdGoalName;
 
     @Column(name = "tmd_target_amount", nullable = false, precision = 10, scale = 2)
@@ -39,5 +39,4 @@ public class TmdSaving {
 
     @Column(name = "tmd_target_date", nullable = false)
     private LocalDate tmdTargetDate;
-
 }

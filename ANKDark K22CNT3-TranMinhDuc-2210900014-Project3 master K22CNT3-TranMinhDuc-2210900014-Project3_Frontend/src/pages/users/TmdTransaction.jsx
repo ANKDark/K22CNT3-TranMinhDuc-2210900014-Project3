@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import TmdListTransaction from "../components/transaction/TmdListTransaction";
-import { useTmdTransaction } from "../contexts/TmdTransactionContext";
-import TmdAddTransactionForm from "../components/transaction/TmdAddTransactionForm";
-import TmdEditTransactionForm from "../components/transaction/TmdEditTransactionForm";
+import TmdListTransaction from "../../components/transaction/TmdListTransaction";
+import { useTmdTransaction } from "../../contexts/TmdTransactionContext";
+import TmdAddTransactionForm from "../../components/transaction/TmdAddTransactionForm";
+import TmdEditTransactionForm from "../../components/transaction/TmdEditTransactionForm";
 import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
 export default function TmdTransaction() {
   const {
@@ -108,15 +108,42 @@ export default function TmdTransaction() {
   });
 
   useEffect(() => {
-    tmdListTransaction.map((tmdTrans) => {
-      if (tmdTrans.tmdCategory.tmdType === true) {
-        setTmdIncome((prev) => prev + tmdTrans.tmdAmount);
-      } else {
-        setTmdExpense((prev) => prev + tmdTrans.tmdAmount);
-      }
-    });
-  }, [tmdListTransaction]);
-
+    if (!tmdListTransaction || tmdListTransaction.length === 0) {
+      setTmdIncome(0);
+      setTmdExpense(0);
+      return;
+    }
+  
+    const selectedMonth = parseInt(tmdMonth) - 1;
+    const selectedYear = parseInt(tmdYear);
+  
+    const { income, expense } = tmdListTransaction.reduce(
+      (acc, tmdTrans) => {
+        if (!tmdTrans?.tmdTransactionDate || !tmdTrans?.tmdCategory) return acc;
+  
+        const transactionDate = new Date(tmdTrans.tmdTransactionDate);
+        if (isNaN(transactionDate.getTime())) return acc;
+  
+        const isSameMonth = transactionDate.getMonth() === selectedMonth;
+        const isSameYear = transactionDate.getFullYear() === selectedYear;
+  
+        if (isSameMonth && isSameYear) {
+          const amount = parseFloat(tmdTrans.tmdAmount) || 0;
+          if (tmdTrans.tmdCategory.tmdType === true) {
+            acc.income += amount;
+          } else {
+            acc.expense += amount;
+          }
+        }
+        return acc;
+      },
+      { income: 0, expense: 0 }
+    );
+  
+    setTmdIncome(income);
+    setTmdExpense(expense);
+  }, [tmdListTransaction, tmdMonth, tmdYear]);
+  
   return (
     <div className="container mt-4 p-4 rounded-3" style={{ backgroundColor: "#343a40" }}>
       {tmdMessage && (

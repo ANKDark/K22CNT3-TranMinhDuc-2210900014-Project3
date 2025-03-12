@@ -5,6 +5,7 @@ import com.tranminhduc_2210900014.exception.TmdUserNotFoundException;
 import com.tranminhduc_2210900014.model.TmdUser;
 import com.tranminhduc_2210900014.repository.TmdUserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 public class TmdUserService implements TmdIUserService {
 
     private final TmdUserRepository tmdUserRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<TmdUser> tmdGetUsers() {
@@ -25,6 +27,7 @@ public class TmdUserService implements TmdIUserService {
         if (tmdUserAlreadyExists(tmdUser.getTmdEmail())) {
             throw new TmdUserAlreadyExistsException(tmdUser.getTmdEmail() + " đã tồn tại!");
         }
+        tmdUser.setTmdPasswordHash(passwordEncoder.encode(tmdUser.getTmdPasswordHash()));
         return tmdUserRepository.save(tmdUser);
     }
 
@@ -36,7 +39,7 @@ public class TmdUserService implements TmdIUserService {
             }
             existingUser.setTmdName(tmdUser.getTmdName());
             existingUser.setTmdEmail(tmdUser.getTmdEmail());
-            existingUser.setTmdPasswordHash(tmdUser.getTmdPasswordHash());
+            existingUser.setTmdPasswordHash(passwordEncoder.encode(tmdUser.getTmdPasswordHash()));
             return tmdUserRepository.save(existingUser);
         }).orElseThrow(() -> new TmdUserNotFoundException("Không tìm thấy tmdUser có id: " + id));
     }

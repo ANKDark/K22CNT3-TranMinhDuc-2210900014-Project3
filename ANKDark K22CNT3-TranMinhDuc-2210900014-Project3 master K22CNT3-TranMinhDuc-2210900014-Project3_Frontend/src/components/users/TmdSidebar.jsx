@@ -27,7 +27,7 @@ const Sidebar = () => {
         <div className="row">
             <div className="col-4">
                 <div
-                    className="d-flex flex-column bg-dark text-white vh-100 shadow overflow-hidden"
+                    className="d-flex flex-column bg-dark text-white vh-100 overflow-hidden"
                     style={{
                         transition: 'width 0.3s ease-in-out, opacity 0.5s ease-in-out',
                         width: tmdIsOpen ? '300px' : '60px',
@@ -79,11 +79,11 @@ const Sidebar = () => {
                             <i className="fas fa-home" style={{ color: '#007bff' }}></i>
                             {tmdIsOpen && <span className='ms-2 sidebar-text'>Trang chủ</span>}
                         </Link>
-                        <Link to="#item-2" className={`btn btn-none it-btn-us-tmd p-3 text-white ${!tmdIsOpen ? 'd-flex justify-content-center' : 'text-start'}`}>
+                        <Link to="/tmdChart" className={`btn btn-none it-btn-us-tmd p-3 text-white ${!tmdIsOpen ? 'd-flex justify-content-center' : 'text-start'}`}>
                             <i className="fas fa-chart-pie" style={{ color: '#6f42c1' }}></i>
                             {tmdIsOpen && <span className='ms-2 sidebar-text'>Phân tích</span>}
                         </Link>
-                        <Link to="#item-3" className={`btn btn-none it-btn-us-tmd p-3 text-white ${!tmdIsOpen ? 'd-flex justify-content-center' : 'text-start'}`}>
+                        <Link to="/tmdEditProfile" className={`btn btn-none it-btn-us-tmd p-3 text-white ${!tmdIsOpen ? 'd-flex justify-content-center' : 'text-start'}`}>
                             <i className="fa fa-user" style={{ color: '#fd7e14' }} aria-hidden="true"></i>
                             {tmdIsOpen && <span className='ms-2 sidebar-text'>Tài khoản</span>}
                         </Link>
@@ -95,13 +95,13 @@ const Sidebar = () => {
                             <i className="fas fa-wallet" style={{ color: '#ffc107' }}></i>
                             {tmdIsOpen && <span className='ms-2 sidebar-text'>Giao dịch</span>}
                         </Link>
-                        <Link to="#item-2" className={`btn btn-none it-btn-us-tmd p-3 text-white ${!tmdIsOpen ? 'd-flex justify-content-center' : 'text-start'}`}>
+                        <Link to="/tmdBudgets" className={`btn btn-none it-btn-us-tmd p-3 text-white ${!tmdIsOpen ? 'd-flex justify-content-center' : 'text-start'}`}>
                             <i className="fas fa-bullseye" style={{ color: '#dc3545' }}></i>
-                            {tmdIsOpen && <span className='ms-2 sidebar-text'>Mục tiêu</span>}
+                            {tmdIsOpen && <span className='ms-2 sidebar-text'>Ngân sách</span>}
                         </Link>
-                        <Link to="#item-3" className={`btn btn-none it-btn-us-tmd p-3 text-white ${!tmdIsOpen ? 'd-flex justify-content-center' : 'text-start'}`}>
-                            <i className="fas fa-exchange-alt" style={{ color: '#17a2b8' }}></i>
-                            {tmdIsOpen && <span className='ms-2 sidebar-text'>Giao dịch</span>}
+                        <Link to="/tmdSaving" className={`btn btn-none it-btn-us-tmd p-3 text-white ${!tmdIsOpen ? 'd-flex justify-content-center' : 'text-start'}`}>
+                            <i className="fa-duotone fa-solid fa-vault" style={{ color: '#17a2b8' }}></i>
+                            {tmdIsOpen && <span className='ms-2 sidebar-text'>Tiết kiệm</span>}
                         </Link>
                         <Link to="#item-3" className={`btn btn-none it-btn-us-tmd p-3 text-white ${!tmdIsOpen ? 'd-flex justify-content-center' : 'text-start'}`}>
                             <i className="fas fa-cog" style={{ color: '#6c757d' }}></i>
@@ -115,7 +115,7 @@ const Sidebar = () => {
                                 width="40"
                                 height="40"
                             />
-                            {tmdIsOpen && <span><strong>{tmdUser?.tmdName || "Không hiển thị tên"}</strong></span>}
+                            {tmdIsOpen && <span><strong>{tmdUser?.tmdName || ""}</strong></span>}
                         </div>
                     </div>
                 </div>

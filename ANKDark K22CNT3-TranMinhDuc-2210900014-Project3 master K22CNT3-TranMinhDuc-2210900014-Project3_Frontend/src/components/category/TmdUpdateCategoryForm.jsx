@@ -34,7 +34,7 @@ export default function TmdUpdateCategoryForm({
                 <div className="col-md-6 mb-3">
                   <input
                     type="text"
-                    className="form-control bg-secondary text-white border-0 p-2 rounded"
+                    className="form-control bg-secondary text-white border-0 p-2 rounded tmd-Input-Cate"
                     placeholder="Tên danh mục"
                     value={tmdName}
                     onChange={(e) => setTmdNameUpdate(e.target.value)}

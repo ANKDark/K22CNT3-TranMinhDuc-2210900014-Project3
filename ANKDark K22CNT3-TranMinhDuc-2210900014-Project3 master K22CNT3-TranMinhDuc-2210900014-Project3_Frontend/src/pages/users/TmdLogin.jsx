@@ -7,16 +7,23 @@ export default function TmdLogin() {
   const [tmdEmail, setTmdEmail] = useState("");
   const [tmdPassword, setTmdPassword] = useState("");
   const [tmdRemember, setTmdRemember] = useState(false);
+  const [tmdError, setTmdError] = useState("");
 
   const tmdHandleSubmit = async (e) => {
     e.preventDefault();
+    setTmdError("");
+  
     if (!tmdEmail || !tmdPassword) {
-      console.log("Thiếu thông tin đăng nhập!");
+      setTmdError("Thiếu thông tin đăng nhập!");
       return;
     }
-    await tmdLogin(tmdEmail, tmdPassword, tmdRemember);
+  
+    const result = await tmdLogin(tmdEmail, tmdPassword, tmdRemember);
+    if (!result.success) {
+      setTmdError(result.message);
+    }
   };
-
+  
   return (
     <form onSubmit={tmdHandleSubmit}>
       <h1>Đăng nhập</h1>
@@ -29,6 +36,7 @@ export default function TmdLogin() {
           className="form-control my-3"
           value={tmdEmail}
           onChange={(e) => setTmdEmail(e.target.value)}
+          autoComplete="email"
           autoFocus
         />
         <i className="bx bx-user"></i>
@@ -64,6 +72,10 @@ export default function TmdLogin() {
       <button type="submit" className="btn_sub">
         Đăng nhập
       </button>
+      <div className="register_link">
+        <p>Bạn không có tài khoản? <Link to="/tmdRegister">Đăng ký</Link></p>
+      </div>
+      {tmdError && <div className="error pt-1 text-center fs-6"><strong>{tmdError}</strong></div>}
     </form>
   );
 }

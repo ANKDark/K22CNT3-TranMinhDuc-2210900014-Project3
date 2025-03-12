@@ -19,8 +19,8 @@ import java.time.LocalDate;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class TmdTransaction {
     @Id
-    @Column(name = "tmd_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "tmd_id", nullable = false)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -31,7 +31,6 @@ public class TmdTransaction {
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.SET_NULL)
     @JoinColumn(name = "tmd_category_id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private TmdCategory tmdCategory;
 
     @Column(name = "tmd_amount", nullable = false, precision = 10, scale = 2)

@@ -1,4 +1,4 @@
-input::placeholder {
+.tmd-Input-Cate::placeholder {
     color: rgba(224, 213, 213, 0.568) !important; 
     opacity: 1;
   }
